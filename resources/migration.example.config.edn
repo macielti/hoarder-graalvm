@@ -1,0 +1,7 @@
+{:host             "host-example"
+ :port             5432
+ :user             "user-example"
+ :password         "passowrd-example"
+ :database         "hoarder"
+ :migrations-table :migrations
+ :migrations-path  "resources/migrations"}
