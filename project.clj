@@ -34,6 +34,7 @@
                    :test-paths     ["test/unit" "test/integration" "test/helpers"]
 
                    :dependencies   [[net.clojars.macielti/common-test-clj "5.2.4"]
+                                    [nubank/matcher-combinators "3.9.1"]
                                     [com.github.igrishaev/pg2-migration "0.1.33"]
                                     [hashp "0.2.2"]]
 

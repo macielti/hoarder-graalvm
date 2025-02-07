@@ -13,3 +13,6 @@ pom.xml.asc
 .hg/
 /.idea/
 /hoarder-graalvm.iml
+/.clj-kondo/.cache/
+/.clj-kondo/imports/
+/.lsp/.cache/

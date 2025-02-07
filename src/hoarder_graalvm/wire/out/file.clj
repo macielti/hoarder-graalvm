@@ -1,6 +1,5 @@
 (ns hoarder-graalvm.wire.out.file
-  (:require
-   [schema.core :as s]))
+  (:require [schema.core :as s]))
 
 (s/defschema File
   {:id                            s/Str

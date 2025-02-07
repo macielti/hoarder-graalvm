@@ -1,8 +1,6 @@
 (ns hoarder-graalvm.wire.in.database.postgresql.file
-  (:require
-   [schema.core :as s])
-  (:import
-   (java.time LocalDate)))
+  (:require [schema.core :as s])
+  (:import (java.time LocalDateTime)))
 
 (s/defschema File
   {:id                            s/Uuid
@@ -11,4 +9,4 @@
    :access_count                  s/Int
    (s/optional-key :hash)         s/Str
    (s/optional-key :callback_url) s/Str
-   :created_at                    LocalDate})
+   :created_at                    LocalDateTime})

@@ -1,8 +1,6 @@
 (ns hoarder-graalvm.models.file
-  (:require
-   [schema.core :as s])
-  (:import
-   (java.time LocalDate)))
+  (:require [schema.core :as s])
+  (:import (java.time LocalDateTime)))
 
 (s/defschema File
   {:file/id                            s/Uuid
@@ -11,4 +9,4 @@
    :file/access-count                  s/Int
    (s/optional-key :file/hash)         s/Str
    (s/optional-key :file/callback-url) s/Str
-   :file/created-at                    LocalDate})
+   :file/created-at                    LocalDateTime})

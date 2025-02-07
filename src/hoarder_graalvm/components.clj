@@ -1,16 +1,15 @@
 (ns hoarder-graalvm.components
-  (:require
-   [common-clj.integrant-components.config :as component.config]
-   [common-clj.integrant-components.routes :as component.routes]
-   [hoarder-graalvm.diplomat.http-server :as diplomat.http-server]
-   [http-client-component.core :as component.http-client]
-   [integrant.core :as ig]
-   [new-relic-component.core :as component.new-relic]
-   [postgresql-component.core :as component.postgresql]
-   [prometheus-component.core :as component.prometheus]
-   [service-component.core :as component.service]
-   [taoensso.timbre :as timbre]
-   [taoensso.timbre.tools.logging])
+  (:require [common-clj.integrant-components.config :as component.config]
+            [common-clj.integrant-components.routes :as component.routes]
+            [hoarder-graalvm.diplomat.http-server :as diplomat.http-server]
+            [http-client-component.core :as component.http-client]
+            [integrant.core :as ig]
+            [new-relic-component.core :as component.new-relic]
+            [postgresql-component.core :as component.postgresql]
+            [prometheus-component.core :as component.prometheus]
+            [service-component.core :as component.service]
+            [taoensso.timbre :as timbre]
+            [taoensso.timbre.tools.logging])
   (:gen-class))
 
 (taoensso.timbre.tools.logging/use-timbre)

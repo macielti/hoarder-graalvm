@@ -1,8 +1,7 @@
 (ns hoarder-graalvm.diplomat.http-server.file
-  (:require
-   [hoarder-graalvm.adapters.file :as adapters.file]
-   [hoarder-graalvm.controllers.file :as controllers.file]
-   [schema.core :as s]))
+  (:require [hoarder-graalvm.adapters.file :as adapters.file]
+            [hoarder-graalvm.controllers.file :as controllers.file]
+            [schema.core :as s]))
 
 (s/defn create-file!
   [{{:keys [file]}       :json-params

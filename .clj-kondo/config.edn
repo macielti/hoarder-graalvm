@@ -1,0 +1,1 @@
+{:lint-as {pg.core/with-connection clojure.core/let}}
