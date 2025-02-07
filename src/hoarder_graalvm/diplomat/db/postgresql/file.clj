@@ -17,3 +17,14 @@
                       :first  true})
          (medley/remove-vals nil?)
          adapters.file/postgresql->internal)))
+
+(s/defn lookup :- (s/maybe models.file/File)
+  [id :- s/Uuid
+   pool]
+  (pg/with-connection [connection pool]
+    (some->> (pg/execute connection
+                         "SELECT * FROM files WHERE id = $1"
+                         {:params [id]
+                          :first  true})
+             (medley/remove-vals nil?)
+             adapters.file/postgresql->internal)))

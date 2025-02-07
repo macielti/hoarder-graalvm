@@ -8,4 +8,9 @@
               :post [traceability/with-correlation-id-http-interceptor
                      (service.interceptors/schema-body-in-interceptor {:file wire.in.file/File})
                      diplomat.http-server.file/create-file!]
-              :route-name :create-file]])
+              :route-name :create-file]
+
+             ["/api/files/:file-id"
+              :get [traceability/with-correlation-id-http-interceptor
+                    diplomat.http-server.file/fetch-file]
+              :route-name :fetch-file]])

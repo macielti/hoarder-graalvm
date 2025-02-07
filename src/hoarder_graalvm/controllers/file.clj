@@ -7,3 +7,8 @@
   [file :- models.file/File
    pool]
   (database.file/insert! file pool))
+
+(s/defn fetch-file :- (s/maybe models.file/File)
+  [file-id :- s/Uuid
+   pool]
+  (database.file/lookup file-id pool))
