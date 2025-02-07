@@ -1,14 +1,25 @@
-# hoarder-graalvm
+![Compatible with GraalVM](https://img.shields.io/badge/compatible_with-GraalVM-green)
 
-A Clojure library designed to ... well, that part is up to you.
+# Hoarder Graalvm
 
-## Usage
+![Compulsive Hoarding Apartment](https://upload.wikimedia.org/wikipedia/commons/2/20/Compulsive_hoarding_Apartment.jpg)
 
-FIXME
+"Someone who collects large amounts of something and keeps it for themselves, often in a secret place." - Cambridge
+Dictionary
+
+A microservice that uses the Telegram infrastructure to store files/documents like a kind of S3 Bucket.
+
+## Development
+
+Migration Creation:
+`lein run -m pg.migration.cli -c migration.config.edn create --slug 'customers'`
+
+Apply all Migrations:
+`lein run -m pg.migration.cli -c migration.config.edn migrate --all`
 
 ## License
 
-Copyright © 2025 FIXME
+Copyright © 2025 Bruno do Nascimento Maciel
 
 This program and the accompanying materials are made available under the
 terms of the Eclipse Public License 2.0 which is available at
