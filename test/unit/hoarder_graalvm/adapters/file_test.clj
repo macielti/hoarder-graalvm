@@ -1,9 +1,9 @@
 (ns hoarder-graalvm.adapters.file-test
-  (:require [clojure.test :refer :all]
+  (:require [clojure.test :refer [is testing]]
+            [fixtures.file]
             [hoarder-graalvm.adapters.file :as adapters.file]
             [java-time.api :as jt]
             [matcher-combinators.test :refer [match?]]
-            [fixtures.file]
             [schema.test :as s]))
 
 (s/deftest internal->wire-test

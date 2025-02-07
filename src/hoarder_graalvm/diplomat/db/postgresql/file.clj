@@ -10,7 +10,7 @@
    pool]
   (pg/with-connection [connection pool]
     (->> (pg/execute connection
-                     "INSERT INTO customers (id, name, total_size, access_count, hash, callback_url, created_at)
+                     "INSERT INTO files (id, name, total_size, access_count, hash, callback_url, created_at)
                       VALUES ($1, $2, $3, $4, $5, $6, $7)
                      RETURNING *"
                      {:params [id name total-size access-count hash callback-url created-at]

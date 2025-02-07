@@ -1,6 +1,5 @@
 (ns fixtures.file
-  (:require [clojure.test :refer :all]
-            [common-test-clj.helpers.schema :as helpers.schema]
+  (:require [common-test-clj.helpers.schema :as helpers.schema]
             [hoarder-graalvm.models.file :as models.file]
             [hoarder-graalvm.wire.in.database.postgresql.file :as wre.in.database.file]
             [java-time.api :as jt]
