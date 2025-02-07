@@ -1,7 +1,7 @@
 (ns hoarder-graalvm.diplomat.db.postgresql.file-test
   (:require [aux.components]
             [clj-uuid]
-            [clojure.test :refer :all]
+            [clojure.test :refer [is testing]]
             [common-test-clj.component.postgresql-mock :as component.postgresql-mock]
             [fixtures.file]
             [hoarder-graalvm.diplomat.db.postgresql.file :as database.file]
