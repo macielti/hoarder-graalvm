@@ -13,7 +13,8 @@
 
 (taoensso.timbre.tools.logging/use-timbre)
 
-(def schemas ["CREATE TABLE IF NOT EXISTS files (id UUID PRIMARY KEY, name VARCHAR NOT NULL, total_size INTEGER, access_count INTEGER NOT NULL, hash VARCHAR, callback_url VARCHAR, created_at TIMESTAMP NOT NULL);"])
+(def schemas ["CREATE TABLE IF NOT EXISTS files (id UUID PRIMARY KEY, name VARCHAR NOT NULL, total_size INTEGER, access_count INTEGER NOT NULL, hash VARCHAR, callback_url VARCHAR, created_at TIMESTAMP NOT NULL);"
+              "CREATE TABLE IF NOT EXISTS fragments (id UUID PRIMARY KEY, file_id UUID NOT NULL, external_file_id VARCHAR NOT NULL, index INTEGER NOT NULL, hash VARCHAR NOT NULL, created_at TIMESTAMP NOT NULL);"])
 
 (def dependencies
   {:config      (ig/ref ::component.config/config)

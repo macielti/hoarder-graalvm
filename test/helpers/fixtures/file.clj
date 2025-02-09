@@ -8,6 +8,7 @@
 (def file-id (random-uuid))
 (def file-name "File Name Example.pdf")
 (def file-created-at (jt/local-date-time))
+(def file-hash (str (random-uuid)))
 
 (def internal-file
   (helpers.schema/generate models.file/File

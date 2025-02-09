@@ -19,3 +19,12 @@
    :body   {:file (-> (UUID/fromString file-id)
                       (controllers.file/fetch-file postgresql)
                       adapters.file/internal->wire)}})
+
+(s/defn upload-file!
+  [{params                                  :params
+    {:keys [file-id]}                       :path-params
+    {:keys [postgresql config http-client]} :components}]
+  (let [absolute-file-path (-> (get-in params ["file" :tempfile]) .getAbsolutePath)
+        file-id' (UUID/fromString file-id)]
+    (controllers.file/upload-file! absolute-file-path file-id' postgresql config http-client)
+    {:status 200}))
