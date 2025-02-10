@@ -31,3 +31,10 @@
                                                  :get (str "/api/files/" file-id))]
     {:status status
      :body   (json/decode body true)}))
+
+(defn fetch-fragments-by-file
+  [file-id
+   service-fn]
+  (let [{:keys [body status]} (test/response-for service-fn :get (str "/api/files/" file-id "/fragments"))]
+    {:status status
+     :body   (json/decode body true)}))

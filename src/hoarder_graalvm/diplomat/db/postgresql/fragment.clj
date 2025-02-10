@@ -21,8 +21,8 @@
 (s/defn by-file-id :- [models.fragment/Fragment]
   [file-id :- s/Uuid
    postgresql-pool]
-  (pg/with-connection [database-conn postgresql-pool]
-    (->> (pg/execute database-conn
+  (pg/with-connection [connection postgresql-pool]
+    (->> (pg/execute connection
                      "SELECT *
                       FROM fragments
                       WHERE file_id = $1"

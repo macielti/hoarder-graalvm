@@ -1,9 +1,11 @@
 (ns hoarder-graalvm.controllers.fragments
-  (:require [hoarder-graalvm.diplomat.telegram.producer :as diplomat.telegram.producer]
+  (:require [hoarder-graalvm.diplomat.db.postgresql.fragment :as database.fragment]
+            [hoarder-graalvm.diplomat.telegram.producer :as diplomat.telegram.producer]
             [hoarder-graalvm.logic.fragment :as logic.fragment]
             [hoarder-graalvm.models.fragment :as models.fragment]
             [schema.core :as s])
-  (:import (java.io File)))
+  (:import (java.io File)
+           (org.pg Pool)))
 
 (s/defn process-fragments-upload! :- [models.fragment/Fragment]
   [file-id :- s/Uuid
@@ -17,3 +19,8 @@
               (-> (diplomat.telegram.producer/send-document! file telegram-chat-id telegram-token http-client)
                   (logic.fragment/->fragment file-id fragment-index file)))
             file-fragments fragment-indexes))))
+
+(s/defn by-file :- [models.fragment/Fragment]
+  [file-id :- s/Uuid
+   postgresql :- Pool]
+  (database.fragment/by-file-id file-id postgresql))

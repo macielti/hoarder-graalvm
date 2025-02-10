@@ -80,4 +80,9 @@
                    {:url "https://api.telegram.org/bot123456:random-token/sendDocument" :method :post}]
                   (component.http-client/requests http-client))))
 
+    (testing "Should be able to fetch created Fragments during File upload flow"
+      (is (match? {:status 200
+                   :body   {:fragments [{:id clj-uuid/uuid-string?}]}}
+                  (aux.http/fetch-fragments-by-file file-id service-fn))))
+
     (ig/halt! system)))

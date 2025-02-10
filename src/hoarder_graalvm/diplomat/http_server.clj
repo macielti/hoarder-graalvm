@@ -1,6 +1,7 @@
 (ns hoarder-graalvm.diplomat.http-server
   (:require [common-clj.traceability.core :as traceability]
             [hoarder-graalvm.diplomat.http-server.file :as diplomat.http-server.file]
+            [hoarder-graalvm.diplomat.http-server.fragment :as diplomat.http-server.fragment]
             [hoarder-graalvm.interceptors.file :as interceptors.file]
             [hoarder-graalvm.wire.in.file :as wire.in.file]
             [io.pedestal.http.ring-middlewares :as ring-mw]
@@ -18,7 +19,14 @@
               :route-name :fetch-file]
 
              ["/api/files/:file-id/upload"
-              :post [interceptors.file/file-existence-check-interceptor
+              :post [traceability/with-correlation-id-http-interceptor
+                     interceptors.file/file-existence-check-interceptor
                      interceptors.file/already-uploaded-file-check-interceptor
                      (ring-mw/multipart-params)
-                     diplomat.http-server.file/upload-file!] :route-name :upload-file]])
+                     diplomat.http-server.file/upload-file!]
+              :route-name :upload-file]
+
+             ["/api/files/:file-id/fragments"
+              :get [traceability/with-correlation-id-http-interceptor
+                    diplomat.http-server.fragment/by-file]
+              :route-name :fragments-by-file]])
