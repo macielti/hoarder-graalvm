@@ -1,4 +1,4 @@
-(ns aux.components
+(ns integration.aux.components
   (:require [common-clj.integrant-components.config :as component.config]
             [common-clj.integrant-components.routes :as component.routes]
             [common-test-clj.component.postgresql-mock :as component.postgresql-mock]

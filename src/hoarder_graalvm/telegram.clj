@@ -1,5 +1,6 @@
 (ns hoarder-graalvm.telegram
-  (:require [http-client-component.core :as component.http-client]))
+  (:require [cheshire.core :as json]
+            [http-client-component.core :as component.http-client]))
 
 (def BASE_URL "https://api.telegram.org/bot")
 
@@ -17,4 +18,5 @@
                                           :endpoint-id :telegram-send-document
                                           :payload     {:multipart form}}
                                          http-client)
-        :body)))
+        :body
+        (json/decode true))))

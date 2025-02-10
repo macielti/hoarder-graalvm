@@ -1,3 +1,5 @@
 {:test {:service-name "hoarder"
         :service      {:host "0.0.0.0"
-                       :port 8080}}}
+                       :port 8080}
+        :telegram     {:token   "123456:random-token"
+                       :chat-id "123456"}}}

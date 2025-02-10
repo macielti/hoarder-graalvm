@@ -1,10 +1,10 @@
 (ns hoarder-graalvm.diplomat.db.postgresql.file-test
-  (:require [aux.components]
-            [clj-uuid]
+  (:require [clj-uuid]
             [clojure.test :refer [is testing]]
             [common-test-clj.component.postgresql-mock :as component.postgresql-mock]
             [fixtures.file]
             [hoarder-graalvm.diplomat.db.postgresql.file :as database.file]
+            [integration.aux.components :as aux.components]
             [java-time.api :as jt]
             [matcher-combinators.test :refer [match?]]
             [pg.core :as pg]
