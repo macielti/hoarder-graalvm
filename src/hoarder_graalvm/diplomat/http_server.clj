@@ -28,5 +28,6 @@
 
              ["/api/files/:file-id/fragments"
               :get [traceability/with-correlation-id-http-interceptor
+                    interceptors.file/file-existence-check-interceptor
                     diplomat.http-server.fragment/by-file]
               :route-name :fragments-by-file]])

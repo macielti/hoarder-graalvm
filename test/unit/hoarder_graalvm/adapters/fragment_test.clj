@@ -1,7 +1,7 @@
 (ns hoarder-graalvm.adapters.fragment-test
-  (:require [clojure.test :refer [is testing]]
+  (:require [clj-uuid]
+            [clojure.test :refer [is testing]]
             [fixtures.file]
-            [clj-uuid]
             [fixtures.fragment]
             [hoarder-graalvm.adapters.fragment :as adapters.fragment]
             [java-time.api :as jt]
