@@ -63,7 +63,7 @@
   (let [fragments (->> (database.fragment/by-file-id file-id pool)
                        (sort-by :fragment/index))
         downloaded-file-fragments (download-fragments! fragments telegram-token http-client)
-        downloaded-file (-> (logic.file/file-path-for-joined-fragments-files file-id)
+        downloaded-file (-> (logic.file/joined-fragments-file-path file-id)
                             io/file)]
     (merge-files! downloaded-file downloaded-file-fragments)
-    (io/file (logic.file/file-path-for-joined-fragments-files file-id))))
+    (io/file (logic.file/joined-fragments-file-path file-id))))

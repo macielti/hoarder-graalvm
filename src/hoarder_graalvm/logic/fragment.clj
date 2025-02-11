@@ -6,7 +6,6 @@
             [schema.core :as s])
   (:import (java.io File)))
 
-;; TODO: Implement unit tests
 (s/defn ->fragment :- models.fragment/Fragment
   [external-file-id :- s/Str
    file-id :- s/Uuid
