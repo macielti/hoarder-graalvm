@@ -1,6 +1,7 @@
 (ns hoarder-graalvm.diplomat.http-server.file
   (:require [hoarder-graalvm.adapters.file :as adapters.file]
             [hoarder-graalvm.controllers.file :as controllers.file]
+            [hoarder-graalvm.diplomat.db.postgresql.file :as database.file]
             [schema.core :as s])
   (:import (java.util UUID)))
 
@@ -28,3 +29,11 @@
         file-id' (UUID/fromString file-id)]
     (controllers.file/upload-file! absolute-file-path file-id' postgresql config http-client)
     {:status 200}))
+
+(s/defn download-file!
+  [{{:keys [file-id]}                       :path-params
+    {:keys [postgresql config http-client]} :components}]
+  (let [file-id' (UUID/fromString file-id)]
+    {:status  200
+     :headers {"Content-Disposition" (str "attachment; filename=\"" (-> (database.file/lookup file-id' postgresql) :file/name) "\"")}
+     :body    (controllers.file/download-file! file-id' config postgresql http-client)}))

@@ -1,6 +1,6 @@
 (ns hoarder-graalvm.diplomat.http-server.fragment
   (:require [hoarder-graalvm.adapters.fragment :as adapters.fragment]
-            [hoarder-graalvm.controllers.fragments :as controllers.fragment]
+            [hoarder-graalvm.controllers.fragment :as controllers.fragment]
             [schema.core :as s])
   (:import (java.util UUID)))
 

@@ -3,7 +3,7 @@
             [buddy.core.hash :as hash]
             [clojure.java.io :as io]
             [clojure.string]
-            [hoarder-graalvm.controllers.fragments :as controllers.fragments]
+            [hoarder-graalvm.controllers.fragment :as controllers.fragment]
             [hoarder-graalvm.diplomat.db.postgresql.file :as database.file]
             [hoarder-graalvm.diplomat.http-client :as diplomat.http-client]
             [hoarder-graalvm.models.file :as models.file]
@@ -53,10 +53,17 @@
         total-file-size (-> (io/file absolute-file-path) .length)
         file-hash (-> (io/file absolute-file-path) hash/md5 buddy-codecs/bytes->hex)
         files (split-file! absolute-file-path file-id)
-        fragments (controllers.fragments/process-fragments-upload! file-id files (:chat-id telegram) (:token telegram) http-client)]
+        fragments (controllers.fragment/process-fragments-upload! file-id files (:chat-id telegram) (:token telegram) http-client)]
     (database.file/upload-completed! file-id total-file-size file-hash fragments postgresql)
     (when callback-url
       ;; TODO: Implement a retry policy
       (diplomat.http-client/hit-callback-url! callback-url http-client))
     ;; TODO: Guarantee that the files will be deleted even of there was an exception in the middle of the file upload process
     (delete-files! files)))
+
+(s/defn download-file! :- File
+  [file-id :- s/Uuid
+   {:keys [telegram]}
+   database-connection
+   http-client]
+  (controllers.fragment/fragments->file! file-id (:token telegram) database-connection http-client))

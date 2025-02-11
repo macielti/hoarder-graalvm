@@ -18,3 +18,8 @@
    :fragment/index            fragment-index
    :fragment/hash             (-> (hash/md5 file) buddy-codecs/bytes->hex)
    :fragment/created-at       (jt/local-date-time)})
+
+; TODO: Implement unit tests
+(s/defn output-fragment-file-path :- s/Str
+  [{:fragment/keys [index file-id]} :- models.fragment/Fragment]
+  (format "/tmp/%s-download-part-%d" file-id index))

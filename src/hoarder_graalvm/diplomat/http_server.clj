@@ -30,4 +30,9 @@
               :get [traceability/with-correlation-id-http-interceptor
                     interceptors.file/file-existence-check-interceptor
                     diplomat.http-server.fragment/by-file]
-              :route-name :fragments-by-file]])
+              :route-name :fragments-by-file]
+
+             ["/api/files/:file-id/download"
+              :get [interceptors.file/file-existence-check-interceptor
+                    diplomat.http-server.file/download-file!]
+              :route-name :download-file]])
