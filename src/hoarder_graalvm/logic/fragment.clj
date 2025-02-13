@@ -22,3 +22,8 @@
 (s/defn output-fragment-file-path :- s/Str
   [{:fragment/keys [index file-id]} :- models.fragment/Fragment]
   (format "/tmp/%s-download-part-%d" file-id index))
+
+; TODO: Implement unit tests
+(s/defn output-encrypted-fragment-file-path :- s/Str
+  [{:fragment/keys [index file-id]} :- models.fragment/Fragment]
+  (format "/tmp/%s-download-part-%d.enc" file-id index))

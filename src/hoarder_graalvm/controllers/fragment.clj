@@ -1,5 +1,6 @@
 (ns hoarder-graalvm.controllers.fragment
   (:require [clojure.java.io :as io]
+            [hoarder-graalvm.cryptograph :as cryptograph]
             [hoarder-graalvm.diplomat.db.postgresql.fragment :as database.fragment]
             [hoarder-graalvm.diplomat.http-client :as diplomat.http-client]
             [hoarder-graalvm.diplomat.telegram.producer :as diplomat.telegram.producer]
@@ -32,11 +33,13 @@
   [fragment :- models.fragment/Fragment
    telegram-token :- s/Str
    http-client]
-  (let [output-file-fragment (io/file (logic.fragment/output-fragment-file-path fragment))]
+  (let [encrypted-file-fragment (io/file (logic.fragment/output-encrypted-fragment-file-path fragment))
+        file-fragment (io/file (logic.fragment/output-encrypted-fragment-file-path fragment))]
     (-> (diplomat.http-client/fetch-telegram-file-path (:fragment/external-file-id fragment) telegram-token http-client)
         (diplomat.http-client/download-telegram-document! telegram-token http-client)
-        (io/copy output-file-fragment))
-    output-file-fragment))
+        (io/copy encrypted-file-fragment))
+    (cryptograph/decrypt-file! encrypted-file-fragment file-fragment (str (:fragment/file-id fragment)))
+    file-fragment))
 
 (s/defn ^:private download-fragments! :- [File]
   [fragments :- [models.fragment/Fragment]

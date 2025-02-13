@@ -4,6 +4,7 @@
             [clojure.java.io :as io]
             [clojure.string]
             [hoarder-graalvm.controllers.fragment :as controllers.fragment]
+            [hoarder-graalvm.cryptograph :as cryptograph]
             [hoarder-graalvm.diplomat.db.postgresql.file :as database.file]
             [hoarder-graalvm.diplomat.http-client :as diplomat.http-client]
             [hoarder-graalvm.models.file :as models.file]
@@ -34,14 +35,24 @@
             (with-open [writer (io/output-stream part-file)]
               (.write writer buffer 0 bytes-read)))
           (recur (inc part-index))))))
-  (->> (file-seq (io/file "/tmp/"))
-       (filter #(clojure.string/includes? (.getAbsolutePath %) (str file-id)))
-       (sort-by #(.getAbsolutePath %))))
+  (let [fragments-files (->> (file-seq (io/file "/tmp/"))
+                             (filter #(clojure.string/includes? (.getAbsolutePath %) (str file-id)))
+                             (sort-by #(.getAbsolutePath %)))]
+    (mapv (fn [fragment-file]
+            (let [output-encrypted-fragment-file (-> (.getAbsolutePath fragment-file)
+                                                     (clojure.string/replace ".bin" ".enc")
+                                                     io/file)]
+              (cryptograph/encrypt-file! fragment-file output-encrypted-fragment-file (str file-id))
+              output-encrypted-fragment-file))
+          fragments-files)))
 
 (s/defn ^:private delete-files!
-  [files :- [File]]
-  (doseq [file files]
-    (io/delete-file file)))
+  [file-id :- s/Uuid]
+  (let [files (->> (file-seq (io/file "/tmp/"))
+                   (filter #(clojure.string/includes? (.getAbsolutePath %) (str file-id)))
+                   (sort-by #(.getAbsolutePath %)))]
+    (doseq [file files]
+      (io/delete-file file))))
 
 (s/defn upload-file!
   [absolute-file-path :- s/Str
@@ -59,7 +70,7 @@
       ;; TODO: Implement a retry policy
       (diplomat.http-client/hit-callback-url! callback-url http-client))
     ;; TODO: Guarantee that the files will be deleted even of there was an exception in the middle of the file upload process
-    (delete-files! files)))
+    (delete-files! file-id)))
 
 (s/defn download-file! :- File
   [file-id :- s/Uuid
