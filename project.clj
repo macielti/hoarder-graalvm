@@ -21,6 +21,9 @@
                  [io.pedestal/pedestal.jetty "0.7.2"]
                  [io.pedestal/pedestal.error "0.7.2"]
 
+                 ;encryption
+                 [com.taoensso/nippy "3.4.2"]
+
                  [com.taoensso/timbre "6.6.1"]
 
                  [com.github.clj-easy/graal-build-time "1.0.5"]]
@@ -67,6 +70,8 @@
 
                                                     ;;prometheus
                                                     "--initialize-at-run-time=io.prometheus.client.Striped64"
+
+                                                    "--trace-object-instantiation=java.security.SecureRandom"
 
                                                     "-H:ReflectionConfigurationFiles=reflect-config.json"
                                                     "--features=clj_easy.graal_build_time.InitClojureClasses"
