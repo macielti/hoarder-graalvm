@@ -23,6 +23,7 @@
 
                  ;encryption
                  [com.taoensso/nippy "3.4.2"]
+                 [com.taoensso/encore "3.112.0"]
 
                  [com.taoensso/timbre "6.6.1"]
 
