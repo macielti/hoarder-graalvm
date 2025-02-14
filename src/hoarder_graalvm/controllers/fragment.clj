@@ -34,7 +34,7 @@
    telegram-token :- s/Str
    http-client]
   (let [encrypted-file-fragment (io/file (logic.fragment/output-encrypted-fragment-file-path fragment))
-        file-fragment (io/file (logic.fragment/output-encrypted-fragment-file-path fragment))]
+        file-fragment (io/file (logic.fragment/output-fragment-file-path fragment))]
     (-> (diplomat.http-client/fetch-telegram-file-path (:fragment/external-file-id fragment) telegram-token http-client)
         (diplomat.http-client/download-telegram-document! telegram-token http-client)
         (io/copy encrypted-file-fragment))
@@ -51,7 +51,7 @@
 (s/defn merge-files! :- File
   "Merge multiple files into a single file."
   [output-file :- File
-   input-files :- File]
+   input-files :- [File]]
   (with-open [writer (io/output-stream output-file)]
     (doseq [file input-files]
       (with-open [reader (io/input-stream file)]

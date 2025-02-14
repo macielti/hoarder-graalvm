@@ -21,7 +21,7 @@
    pool]
   (database.file/lookup file-id pool))
 
-(def CHUNK_SIZE_BYTES 20971520)
+(def CHUNK_SIZE_BYTES 10485760)
 
 (s/defn ^:private split-file! :- [File]
   [absolute-file-path :- s/Str
@@ -37,7 +37,10 @@
           (recur (inc part-index))))))
   (let [fragments-files (->> (file-seq (io/file "/tmp/"))
                              (filter #(clojure.string/includes? (.getAbsolutePath %) (str file-id)))
-                             (sort-by #(.getAbsolutePath %)))]
+                             (sort-by #(->> (.getAbsolutePath %)
+                                            (re-find #"part-(\d+)")
+                                            second
+                                            parse-long)))]
     (mapv (fn [fragment-file]
             (let [output-encrypted-fragment-file (-> (.getAbsolutePath fragment-file)
                                                      (clojure.string/replace ".bin" ".enc")
