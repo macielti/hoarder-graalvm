@@ -9,6 +9,11 @@ jobs:
     permissions: write-all
     runs-on: macos-latest
     steps:
+      - name: Install Docker
+        run: |
+          brew install --cask docker
+          open /Applications/Docker.app
+          while ! docker system info > /dev/null 2>&1; do sleep 1; done
       - name: Login to GitHub Container Registry
         uses: docker/login-action@v3
         with:
