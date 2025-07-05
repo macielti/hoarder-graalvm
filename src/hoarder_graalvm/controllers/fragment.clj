@@ -20,7 +20,7 @@
   (let [fragment-indexes (-> (count file-fragments) range)]
     (doall (pmap
             (fn [file fragment-index]
-              (-> (diplomat.telegram.producer/send-document! file telegram-chat-id telegram-token http-client)
+              #p (-> (diplomat.telegram.producer/send-document! file telegram-chat-id telegram-token http-client)
                   (logic.fragment/->fragment file-id fragment-index file)))
             file-fragments fragment-indexes))))
 
