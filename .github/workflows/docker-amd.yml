@@ -7,15 +7,8 @@ on:
 jobs:
   docker:
     permissions: write-all
-    runs-on: macos-latest
+    runs-on: ubuntu-22.04-arm
     steps:
-      - name: Install Colima and Docker CLI
-        run: |
-          brew update
-          brew install qemu
-          brew install docker colima
-          colima start
-          docker ps
       - name: Login to GitHub Container Registry
         uses: docker/login-action@v3
         with:
